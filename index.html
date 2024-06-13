@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packaging Specification Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Blob Container -->
+    <div class="blobs-container"></div>
+    
+    <div class="container">
+        <h1>Packaging Specification Generator</h1>
+        <form id="packspec-form">
+            <label for="supply-chain-unit">Supply Chain Unit:</label>
+            <input type="text" id="supply-chain-unit" placeholder="e.g., TESTSCU" required>
+
+            <label for="package-unit">Items per HU/Box:</label>
+            <input type="number" id="package-unit" placeholder="e.g., 50" required>
+
+            <label for="hu-type">HU Type:</label>
+            <input type="text" id="hu-type" placeholder="e.g., BOX" required>
+
+            <label for="batch-mix-allowed" class="checkbox-label">Batch Mix Allowed:</label>
+            <div class="checkbox-wrapper-34">
+                <input class='tgl tgl-ios' id='toggle-34' type='checkbox'>
+                <label class='tgl-btn' for='toggle-34'></label>
+              </div>
+            </label>
+
+            <label for="packaging-material">Packaging Material:</label>
+            <input type="text" id="packaging-material" placeholder="e.g., CARDBOARD" required>
+
+            <label for="csv-file">Upload Materials with UOM:</label>
+            <input type="file" id="csv-file" accept=".csv" required>
+
+            <label for="example-csv-file">Upload Template:</label>
+            <input type="file" id="example-csv-file" accept=".csv" required>
+
+            <button type="submit">Generate Packaging Specification</button>
+        </form>
+        <a id="download-link" href="#" style="display: none;">Download CSV</a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
