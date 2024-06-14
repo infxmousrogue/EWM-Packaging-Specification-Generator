@@ -30,10 +30,10 @@ Generate & Download: Click the button, and download your ready-to-use packaging 
 -CSS3: For stylish and responsive design.
 -JavaScript: For dynamic and interactive functionality.
 
-##🌟 Contributing
+## 🌟 Contributing
 
 I welcome contributions! If you have ideas for new features or improvements, please open an issue or submit a pull request.
 
-##📝 License
+## 📝 License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
