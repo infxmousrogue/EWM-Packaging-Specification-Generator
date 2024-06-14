@@ -189,7 +189,10 @@ function arrayToCSV(data) {
 }
 
 function triggerDownload(csvContent, fileName) {
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    // Add BOM for UTF-8 encoding
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+
     const url = URL.createObjectURL(blob);
     downloadLink.href = url;
     downloadLink.download = fileName;
