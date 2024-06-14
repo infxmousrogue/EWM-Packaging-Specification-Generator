@@ -184,23 +184,25 @@ hclerRows.forEach(row => {
     return outputData;
 }
 
-function arrayToCSV(data) {
-    return data.map(row => row.join(';')).join('\n'); // Adjusted delimiter to ';'
-}
+ function arrayToCSV(data) {
+        data = cleanData(data);
+        return data.map(row => row.join(';')).join('\r\n');
+    }
+    
+   function cleanData(data) {
+        return data.map(row => row.map(cell => cell.trim()));
+    }
 
-function triggerDownload(csvContent, fileName) {
-    // Add BOM for UTF-8 encoding
-    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-    const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
-
-    const url = URL.createObjectURL(blob);
-    downloadLink.href = url;
-    downloadLink.download = fileName;
-    downloadLink.style.display = 'inline';
-    downloadLink.click();
-    URL.revokeObjectURL(url);
-    downloadLink.style.display = 'none';
-}
+    function triggerDownload(csvContent, fileName) {
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        downloadLink.href = url;
+        downloadLink.download = fileName;
+        downloadLink.style.display = 'inline';
+        downloadLink.click();
+        URL.revokeObjectURL(url);
+        downloadLink.style.display = 'none';
+    }
 
 // Map the table headers
 const headerIndices = {
