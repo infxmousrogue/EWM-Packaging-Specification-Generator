@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const packagingMaterialFileInput = document.getElementById('packaging-material');
     const batchMixAllowed =  document.getElementById('toggle-34').checked;
 
-
-  
 // Create blobs
 const blobContainer = document.querySelector('.blobs-container');
 const numberOfBlobs = 10;
@@ -140,9 +138,9 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
         // Update the templateRow with user parameters using headerIndices
         if (type === 'H') {
             templateRow[6] = materialNumber;
-        } else if (type === 'C' &&  !templateRow[23].includes('C')) {
+        } else if (type === 'C') {
             templateRow[22] = materialNumber;
-            templateRow[23] = uom;
+            //templateRow[23] = uom;
             if (batchMixAllowed == true){
                 templateRow[27] = "X";
             }else{
