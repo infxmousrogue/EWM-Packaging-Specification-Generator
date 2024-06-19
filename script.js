@@ -140,7 +140,8 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
             templateRow[6] = materialNumber;
         } else if (type === 'C') {
             templateRow[22] = materialNumber;
-            //templateRow[23] = uom;
+            const sanitizedUom = String(uom).replace(/[\r\n]/g, '');
+            templateRow[23] = sanitizedUom;
             if (batchMixAllowed == true){
                 templateRow[27] = "X";
             }else{
