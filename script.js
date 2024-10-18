@@ -54,12 +54,35 @@ form.addEventListener('submit', function (event) {
     }
 });
 
+// function parseCSVFile(file) {
+//     return new Promise((resolve, reject) => {
+//         const reader = new FileReader();
+//         reader.onload = function (event) {
+//             const text = event.target.result;
+//             const rows = text.trim().split('\n').map(row => row.split(',')); // Adjusted delimiter to ';'
+//             resolve(rows);
+//         };
+//         reader.onerror = function (error) {
+//             reject(error);
+//         };
+//         reader.readAsText(file);
+//     });
+// }
+
 function parseCSVFile(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = function (event) {
             const text = event.target.result;
-            const rows = text.trim().split('\n').map(row => row.split(',')); // Adjusted delimiter to ';'
+
+            // Detect delimiter by checking the first row
+            const delimiters = [',', ';', '\t'];
+            const firstRow = text.split('\n')[0];
+            let detectedDelimiter = delimiters.reduce((a, b) => 
+                (firstRow.split(a).length > firstRow.split(b).length ? a : b)
+            );
+
+            const rows = text.trim().split('\n').map(row => row.split(detectedDelimiter));
             resolve(rows);
         };
         reader.onerror = function (error) {
