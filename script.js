@@ -180,7 +180,7 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
             }
             
             if (hutypeVariable){
-                templateRow[86] = hutypevar;
+                templateRow[34] = hutypevar;
             }else{
                 templateRow[34] = huType;
             }
