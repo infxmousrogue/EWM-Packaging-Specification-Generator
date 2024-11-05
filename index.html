@@ -15,6 +15,9 @@
     <button id="theme-toggle" aria-label="Toggle Dark Mode">
         <span id="theme-icon">🌞</span>
     </button>
+    <!-- <button id="download-example" aria-label="Download Example File">Download Example</button>
+    <button id="download-material" aria-label="Download Material Upload File">Download Material</button>
+     -->
     <div class="container">
         <h1>Packaging Specification Generator</h1>
         <form id="packspec-form">
@@ -22,20 +25,40 @@
             <input type="text" id="supply-chain-unit" placeholder="e.g., TESTSCU" required>
 
             <label for="package-unit">Items per HU/Box:</label>
-            <input type="number" id="package-unit" placeholder="e.g., 50" required>
+           
+            <div class="checkbox-wrapper-2">
+                <input type="number" id="package-unit" placeholder="e.g., 50" >
+                <input class="sc-gJwTLC ikxBAC" type="checkbox" id="items-checkbox">
+                <label for="items-checkbox" class="checkbox-label">Per Material?</label>
+                
+            </div>
 
             <label for="hu-type">HU Type:</label>
-            <input type="text" id="hu-type" placeholder="e.g., BOX" required>
+            
+        <div class="checkbox-wrapper-2">
+                <input type="text" id="hu-type" placeholder="e.g., BOX" >
+                <input class="sc-gJwTLC ikxBAC" type="checkbox" id="hu-checkbox">
+                <label for="hu-checkbox" class="checkbox-label">Per Material?</label>
+            </div>
 
             <label for="batch-mix-allowed" class="checkbox-label">Batch Mix Allowed:</label>
-            <div class="checkbox-wrapper-34">
-                <input class='tgl tgl-ios' id='toggle-34' type='checkbox'>
+            
+        <div class="checkbox-wrapper-2">
+                <input class="sc-gJwTLC ikxBAC" id='batch-mix' type='checkbox'>
                 <label class='tgl-btn' for='toggle-34'></label>
               </div>
             </label>
 
             <label for="packaging-material">Packaging Material:</label>
-            <input type="text" id="packaging-material" placeholder="e.g., CARDBOARD" required>
+            
+            <div class="checkbox-wrapper-2">
+                    <input type="text" id="packaging-material" placeholder="e.g., CARDBOARD">
+                    <input class="sc-gJwTLC ikxBAC" type="checkbox" id="packaging-mat-checkbox">
+                    <label for="item-per-mat-enzo" class="checkbox-label">Per Material?</label>
+                </div>
+            
+           
+           
 
             <label for="csv-file">Upload Materials with UOM:</label>
             <input type="file" id="csv-file" accept=".csv" required>
@@ -51,3 +74,70 @@
     <script src="darkmode.js"></script>
 </body>
 </html>
+
+  
+  <style>
+    .checkbox-wrapper-2 .ikxBAC {
+      appearance: none;
+      background-color: #dfe1e4;
+      border-radius: 72px;
+      border-style: none;
+      flex-shrink: 0;
+      height: 20px;
+      margin: 0;
+      position: relative;
+      width: 30px;
+    }
+  
+    .checkbox-wrapper-2 .ikxBAC::before {
+      bottom: -6px;
+      content: "";
+      left: -6px;
+      position: absolute;
+      right: -6px;
+      top: -6px;
+    }
+  
+    .checkbox-wrapper-2 .ikxBAC,
+    .checkbox-wrapper-2 .ikxBAC::after {
+      transition: all 100ms ease-out;
+    }
+  
+    .checkbox-wrapper-2 .ikxBAC::after {
+      background-color: #fff;
+      border-radius: 50%;
+      content: "";
+      height: 14px;
+      left: 3px;
+      position: absolute;
+      top: 3px;
+      width: 14px;
+    }
+  
+    .checkbox-wrapper-2 input[type=checkbox] {
+      cursor: default;
+    }
+  
+    .checkbox-wrapper-2 .ikxBAC:hover {
+      background-color: #c9cbcd;
+      transition-duration: 0s;
+    }
+  
+    .checkbox-wrapper-2 .ikxBAC:checked {
+      background-color: #6e79d6;
+    }
+  
+    .checkbox-wrapper-2 .ikxBAC:checked::after {
+      background-color: #fff;
+      left: 13px;
+    }
+  
+    .checkbox-wrapper-2 :focus:not(.focus-visible) {
+      outline: 0;
+    }
+  
+    .checkbox-wrapper-2 .ikxBAC:checked:hover {
+      background-color: #535db3;
+    }
+  </style>
+  

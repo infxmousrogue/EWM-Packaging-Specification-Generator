@@ -216,3 +216,26 @@ body.dark-mode #theme-toggle {
 .inline-field label {
   margin-bottom: 0; /* Aligns the label with input field */
 }
+
+#theme-toggle,
+#download-example,
+#download-material {
+    margin-right: 10px; /* Add space between buttons */
+}
+
+#download-example,
+#download-material {
+    background-color: #007bff; /* Same color as the other buttons */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#download-example:hover,
+#download-material:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

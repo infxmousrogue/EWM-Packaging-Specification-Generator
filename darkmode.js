@@ -25,3 +25,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.getElementById('download-example').addEventListener('click', function() {
+    window.location.href = '/Examples/template.csv'; // Replace with your actual file path
+});
+
+document.getElementById('download-material').addEventListener('click', function() {
+    window.location.href = '/Examples/materials.csv'; // Replace with your actual file path
+});

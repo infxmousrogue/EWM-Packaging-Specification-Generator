@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+
+
     const form = document.getElementById('packspec-form');
     const supplyChainUnitInput = document.getElementById('supply-chain-unit');
     const packageUnitInput = document.getElementById('package-unit');
@@ -7,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const downloadLink = document.getElementById('download-link');
     const huTypeFileInput = document.getElementById('hu-type');
     const packagingMaterialFileInput = document.getElementById('packaging-material');
-    const batchMixAllowed =  document.getElementById('toggle-34').checked;
+
+
 
 // Create blobs
 const blobContainer = document.querySelector('.blobs-container');
@@ -30,6 +34,12 @@ form.addEventListener('submit', function (event) {
     const materialFile = materialFileInput.files[0];
     const templateFile = templateFileInput.files[0];
 
+           // Retrieve values on form submit
+           const batchMixAllowed = document.getElementById('batch-mix').checked;
+           const hutypeVariable = document.getElementById('hu-checkbox').checked;
+           const itemVariable = document.getElementById('items-checkbox').checked;
+           const packmatVariable = document.getElementById('packaging-mat-checkbox').checked;
+           
     if (materialFile && templateFile) {
         Promise.all([
             parseCSVFile(materialFile),
@@ -38,9 +48,12 @@ form.addEventListener('submit', function (event) {
             console.log('Material Data:', materialData);
             console.log('Template Data:', templateData);
 
-            const outputData = generateOutputCSV(materialData, templateData, huType,packagingMaterial,supplyChainUnit, packageUnit,batchMixAllowed);
-            console.log('Output Data:', outputData);
 
+   
+            const outputData = generateOutputCSV(materialData, templateData, huType,packagingMaterial,supplyChainUnit, packageUnit,batchMixAllowed,hutypeVariable,itemVariable,packmatVariable);
+       
+            console.log('Output Data:', outputData);
+          
             const outputCSV = arrayToCSV(outputData);
             console.log('Output CSV:', outputCSV);
 
@@ -53,21 +66,6 @@ form.addEventListener('submit', function (event) {
         alert("Please upload both CSV files.");
     }
 });
-
-// function parseCSVFile(file) {
-//     return new Promise((resolve, reject) => {
-//         const reader = new FileReader();
-//         reader.onload = function (event) {
-//             const text = event.target.result;
-//             const rows = text.trim().split('\n').map(row => row.split(',')); // Adjusted delimiter to ';'
-//             resolve(rows);
-//         };
-//         reader.onerror = function (error) {
-//             reject(error);
-//         };
-//         reader.readAsText(file);
-//     });
-// }
 
 function parseCSVFile(file) {
     return new Promise((resolve, reject) => {
@@ -92,9 +90,8 @@ function parseCSVFile(file) {
     });
 }
 
-function generateOutputCSV(materialData, templateData, huType,packagingMaterial,supplyChainUnit, packageUnit,batchMixAllowed) {
+function generateOutputCSV(materialData,templateData,huType,packagingMaterial,supplyChainUnit,packageUnit,batchMixAllowed,hutypeVariable,itemVariable,packmatVariable) {
     const outputData = [];
-
     // Find indices of each type (H, C, L, E, R) in templateData
     const indices = {
         H: templateData.findIndex(row => row[0] === 'H'),
@@ -130,23 +127,26 @@ function generateOutputCSV(materialData, templateData, huType,packagingMaterial,
         "Value", "Field name", "Value", "Field name", "Value", "Field name", "Value", "Field name",
         "Value", "Field name", "Value", "Field name", "Value", "Field name", "Value", "Field name", "Value", "Field name", "Value","Language", "Description"
     ];
+
     outputData.push(headerRow);
 
 
 
-    // Initialize counters for PS Sequence, DL_LEVEL_SEQ, and DL_REC_SEQ
+// Initialize counters for PS Sequence, DL_LEVEL_SEQ, and DL_REC_SEQ
 let psSequenceCounter = 1;
 let dlLevelSeqCounter = 1;
 let dlRecSeqCounter = 1;
 
+
  // Iterate through materialData skipping the header row
 for (let i = 1; i < materialData.length; i++) {
+    
     const materialRow = materialData[i];
     const materialNumber = materialRow[0];
     const uom = String(materialRow[1]);
-
-
-
+    const hutypevar = String(materialRow[2]);
+    const itemsperbox = String(materialRow[3]);
+    const packmat = String(materialRow[4]);
 
  // Create a set of rows for each type H, C, L, E, R and update accordingly
 const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
@@ -160,6 +160,7 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
 
         // Update the templateRow with user parameters using headerIndices
         if (type === 'H') {
+           
             templateRow[6] = materialNumber;
         } else if (type === 'C') {
             templateRow[22] = materialNumber;
@@ -171,10 +172,25 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
                 templateRow[27] = "";
             }
         } else if (type === 'L') {
-            templateRow[headerIndices["Target Qty"]] = packageUnit;
-            templateRow[34] = huType;
+
+            if(itemVariable){
+                templateRow[headerIndices["Target Qty"]] = itemsperbox;
+            }else{
+                templateRow[headerIndices["Target Qty"]] = packageUnit;
+            }
+            
+            if (hutypeVariable){
+                templateRow[86] = hutypevar;
+            }else{
+                templateRow[34] = huType;
+            }
         } else if (type === 'E') {
-            templateRow[85] = packagingMaterial;
+            if(packmatVariable){
+                templateRow[85] = packmat;
+            }else{
+                templateRow[85] = packagingMaterial;
+            }
+            
     } else if (type === 'R') {
             templateRow[100] = supplyChainUnit; // Assuming supplyChainUnit is defined
             templateRow[102] = materialNumber;
