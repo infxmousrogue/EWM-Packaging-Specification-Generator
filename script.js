@@ -142,11 +142,12 @@ let dlRecSeqCounter = 1;
 for (let i = 1; i < materialData.length; i++) {
     
     const materialRow = materialData[i];
-    const materialNumber = materialRow[0];
-    const uom = String(materialRow[1]);
-    const hutypevar = String(materialRow[2]);
-    const itemsperbox = String(materialRow[3]);
-    const packmat = String(materialRow[4]);
+    const materialNumber = materialRow[0].replace(/[\r\n]/g, '');
+    const uom = String(materialRow[1]).replace(/[\r\n]/g, '');
+    const hutypevar = String(materialRow[2]).replace(/[\r\n]/g, '');
+    const itemsperbox = String(materialRow[3]).replace(/[\r\n]/g, '');
+    const packmat = String(materialRow[4]).replace(/[\r\n]/g, '');
+
 
  // Create a set of rows for each type H, C, L, E, R and update accordingly
 const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
@@ -191,7 +192,7 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
                 templateRow[85] = packagingMaterial;
             }
 
-                templateRow[90] = 'PACK'
+              
             
     } else if (type === 'R') {
             templateRow[100] = supplyChainUnit; // Assuming supplyChainUnit is defined
