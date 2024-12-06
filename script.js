@@ -190,6 +190,8 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
             }else{
                 templateRow[85] = packagingMaterial;
             }
+
+                templateRow[90] = 'PACK'
             
     } else if (type === 'R') {
             templateRow[100] = supplyChainUnit; // Assuming supplyChainUnit is defined
