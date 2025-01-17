@@ -174,7 +174,7 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
             }
  
     } else if (type === 'R') {
-            // templateRow[100] = supplyChainUnit; // Assuming supplyChainUnit is defined
+            // templateRow[100] = supplyChainUnit; // Assuming supplyChainUnit is defined PLEASE UPDATE SOMEHWER IN FUTURE
             templateRow[100] = materialNumber;
             psSequenceCounter++; // Increment PS Sequence counter
         }
