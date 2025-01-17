@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-
-
     const form = document.getElementById('packspec-form');
     const supplyChainUnitInput = document.getElementById('supply-chain-unit');
     const packageUnitInput = document.getElementById('package-unit');
@@ -10,8 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const downloadLink = document.getElementById('download-link');
     const huTypeFileInput = document.getElementById('hu-type');
     const packagingMaterialFileInput = document.getElementById('packaging-material');
-
-
 
 // Create blobs
 const blobContainer = document.querySelector('.blobs-container');
@@ -26,7 +22,6 @@ for (let i = 0; i < numberOfBlobs; i++) {
 
 form.addEventListener('submit', function (event) {
     event.preventDefault();
-
     const supplyChainUnit = supplyChainUnitInput.value;
     const packageUnit = packageUnitInput.value;
     const huType = huTypeFileInput.value;
@@ -45,18 +40,8 @@ form.addEventListener('submit', function (event) {
             parseCSVFile(materialFile),
             parseCSVFile(templateFile)
         ]).then(([materialData, templateData]) => {
-            console.log('Material Data:', materialData);
-            console.log('Template Data:', templateData);
-
-
-   
-            const outputData = generateOutputCSV(materialData, templateData, huType,packagingMaterial,supplyChainUnit, packageUnit,batchMixAllowed,hutypeVariable,itemVariable,packmatVariable);
-       
-            console.log('Output Data:', outputData);
-          
+            const outputData = generateOutputCSV(materialData, templateData, huType,packagingMaterial,supplyChainUnit, packageUnit,batchMixAllowed,hutypeVariable,itemVariable,packmatVariable);      
             const outputCSV = arrayToCSV(outputData);
-            console.log('Output CSV:', outputCSV);
-
             triggerDownload(outputCSV, 'output.csv');
         }).catch(error => {
             console.error("Error parsing files:", error);
@@ -130,13 +115,10 @@ function generateOutputCSV(materialData,templateData,huType,packagingMaterial,su
 
     outputData.push(headerRow);
 
-
-
 // Initialize counters for PS Sequence, DL_LEVEL_SEQ, and DL_REC_SEQ
 let psSequenceCounter = 1;
 let dlLevelSeqCounter = 1;
 let dlRecSeqCounter = 1;
-
 
  // Iterate through materialData skipping the header row
 for (let i = 1; i < materialData.length; i++) {
@@ -147,7 +129,6 @@ for (let i = 1; i < materialData.length; i++) {
     const hutypevar = String(materialRow[2]).replace(/[\r\n]/g, '');
     const itemsperbox = String(materialRow[3]).replace(/[\r\n]/g, '');
     const packmat = String(materialRow[4]).replace(/[\r\n]/g, '');
-
 
  // Create a set of rows for each type H, C, L, E, R and update accordingly
 const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
@@ -191,12 +172,10 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
             }else{
                 templateRow[85] = packagingMaterial;
             }
-
-              
-            
+ 
     } else if (type === 'R') {
-            templateRow[100] = supplyChainUnit; // Assuming supplyChainUnit is defined
-            templateRow[102] = materialNumber;
+            // templateRow[100] = supplyChainUnit; // Assuming supplyChainUnit is defined
+            templateRow[100] = materialNumber;
             psSequenceCounter++; // Increment PS Sequence counter
         }
 
@@ -204,7 +183,6 @@ const hclerRows = ['H', 'C', 'L', 'E', 'R'].map(type => {
 
     }
 });
-
 
   // Iterate through hclerRows to show alert and add rows to outputData
 hclerRows.forEach(row => {
